@@ -1,29 +1,33 @@
 //import logo from './logo.svg';
 import './App.css';
-import { Account, AccountContext } from './components/Account';
-import Status from "./components/Status";
-import React, { useEffect, useContext, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import RegisterAndLogin from './components/RegisterAndLogin';
-import Home from './components/Home'
 import Dashboard from './components/Dashboard';
-import Box from '@mui/material/Box';
 import 'react-tabs/style/react-tabs.css';
+import { Amplify } from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+Amplify.configure(awsconfig)
 
 
-function App() {
+function App({signOut, user}) {
+
+  //console.log(user);
 
   return (
       <div className="App">
         <header className="App-header">
         <h3>CMPE281 Project 1</h3>
+        <h3>Hello {user.attributes.given_name}</h3>
         </header>
         <Routes> 
-          <Route path="/" element={<Home />} ></Route>
-          <Route path="/dashboard/" element={<Dashboard/>} ></Route>
+          {/* <Route path="/" element={<Home />} ></Route> */}
+          <Route path="/" element={<Dashboard/>} ></Route>
         </Routes>
       </div>
   );
 }
 
-export default App;
+export default withAuthenticator( App );

@@ -1,6 +1,4 @@
 import React from "react";
-import { Account } from "./Account";
-import Status from "./Status";
 import Upload from "./Upload";
 import Box from '@mui/material/Box';
 import 'react-tabs/style/react-tabs.css';
@@ -30,8 +28,6 @@ const Dashboard = () => {
                         maxWidth: 600,
                         }}
                         >
-                        <Account>
-                        <Status/>
                         <Tabs>
                             <TabList>
                                 <Tab>Upload</Tab>
@@ -45,7 +41,6 @@ const Dashboard = () => {
                                 files
                             </TabPanel>
                         </Tabs>
-                        </Account>
                     </Box>
                 </Box>
             </div>

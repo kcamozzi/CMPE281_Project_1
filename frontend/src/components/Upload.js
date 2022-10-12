@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { uploadFile } from 'react-s3';
-import ReactDom from 'react-dom';
-import ReactS3 from 'react-s3';
-import { AccountContext } from "./Account";
+//import ReactDom from 'react-dom';
+//import ReactS3 from 'react-s3';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import { TextField, Button, Stack, FormGroup } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const config = {
@@ -14,7 +14,7 @@ const config = {
     secretAccessKey: process.env.REACT_APP_AWS_SECRET,
 }
 
-const Upload = () => {
+const Upload = ({user}) => {
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -30,20 +30,20 @@ const Upload = () => {
     }
 
     return (
-        <Stack spacing={2} direction="column">
-            <Button
-            variant="text"
-            component="label">
-            Select File
-            <input type="file" onChange={handleFile}/>
-            </Button>
-            <Button
-            variant="contained"
-            onClick={() => handleUpload(selectedFile)}>
-            Upload
-            </Button>
-        </Stack>
+            <Stack spacing={2} direction="column">
+                hello {user.attributes.given_name}
+                <Button
+                variant="text"
+                component="label">
+                <input type="file" onChange={handleFile}/>
+                </Button>
+                <Button
+                variant="contained"
+                onClick={() => handleUpload(selectedFile)}>
+                Upload
+                </Button>
+            </Stack>
     );
 };
 
-export default Upload;
+export default withAuthenticator(Upload);

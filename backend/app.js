@@ -44,34 +44,42 @@ app.post('/uploads_admin', (req, res) => {
 
 app.post('/', (req,res) =>{
   const data = req.body;
-  let updated = false;
+  //let updated = false;
   let checkExists = `SELECT * FROM user_uploads WHERE (fileName ='${data.fileName}' AND firstName = '${data.firstName}' AND lastName = '${data.lastName}')`;
-  database.query(checkExists,(err,result) => {
+  database.query(checkExists,(err,res) => {
     if(err) {
       //res.send('Error');
-      console.log('not found, must be new entry')
-    }else{
+    }else if(res && res.length > 0){
       let curTime = new Date().toLocaleString();
       database.query(`UPDATE user_uploads SET updatedTime = '${curTime}' WHERE (fileName ='${data.fileName}' AND firstName = '${data.firstName}' AND lastName = '${data.lastName}')`, data, (err,result) => {
         if(err){
-          res.send('Error');
+          //res.send('Error');
+          console.log('cant update row');
         }else{
-          updated = true;
-          res.send(result);
+          //updated = true;
+          //res.send(result);
         }
       })
+    }else{
+      database.query("INSERT INTO user_uploads SET ?", data, (err,result) => {
+        if(err){
+          //res.send('Error');
+        }else{
+          //res.send(result);
+        }
+      });
     }
   });
   
-  if(updated = false){
+/*   if(updated == false){
     database.query("INSERT INTO user_uploads SET ?", data, (err,result) => {
       if(err){
-        res.send('Error');
+        //res.send('Error');
       }else{
         res.send(result);
       }
     });
-  }
+  } */
 
   
 });

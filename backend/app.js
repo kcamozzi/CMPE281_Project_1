@@ -44,14 +44,35 @@ app.post('/uploads_admin', (req, res) => {
 
 app.post('/', (req,res) =>{
   const data = req.body;
-
-  database.query("INSERT INTO user_uploads SET ?", data, (err,result) => {
-    if(err){
-      res.send('Error');
+  let updated = false;
+  let checkExists = `SELECT * FROM user_uploads WHERE (fileName ='${data.fileName}' AND firstName = '${data.firstName}' AND lastName = '${data.lastName}')`;
+  database.query(checkExists,(err,result) => {
+    if(err) {
+      //res.send('Error');
+      console.log('not found, must be new entry')
     }else{
-      res.send(result);
+      let curTime = new Date().toLocaleString();
+      database.query(`UPDATE user_uploads SET updatedTime = '${curTime}' WHERE (fileName ='${data.fileName}' AND firstName = '${data.firstName}' AND lastName = '${data.lastName}')`, data, (err,result) => {
+        if(err){
+          res.send('Error');
+        }else{
+          updated = true;
+          res.send(result);
+        }
+      })
     }
-  })
+  });
+  
+  if(updated = false){
+    database.query("INSERT INTO user_uploads SET ?", data, (err,result) => {
+      if(err){
+        res.send('Error');
+      }else{
+        res.send(result);
+      }
+    });
+  }
+
   
 });
 

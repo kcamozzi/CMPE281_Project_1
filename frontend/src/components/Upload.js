@@ -25,6 +25,7 @@ const Upload = ({user}) => {
     const lastName = user.attributes.family_name;
     let uploadTime = '';
     let fileURL = '';
+    const updatedTime = '-';
     
 
     const handleFile = (e) => {
@@ -62,7 +63,8 @@ const Upload = ({user}) => {
            uploadTime: uploadTime,
            fileName: fileName,
            fileDesc: fileDesc,
-           fileURL: fileURL
+           fileURL: fileURL,
+           updatedTime: updatedTime
         })
           .then((res) => {
             console.log(res);

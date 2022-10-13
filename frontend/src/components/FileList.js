@@ -105,6 +105,7 @@ const FileList = ({user}) => {
                         <th>File</th>
                         <th>Description</th>
                         <th>Date Uploaded</th>
+                        <th>Date Updated</th>
                         <th>Uploaded By</th>
                         <th>Download</th>
                         <th>Delete?</th>
@@ -118,6 +119,7 @@ const FileList = ({user}) => {
                             <td>{value.fileName}</td>
                             <td>{value.fileDesc}</td>
                             <td>{value.uploadTime}</td>
+                            <td>{value.updatedTime}</td>
                             <td>{value.firstName} {value.lastName}</td>
                             <td><Link href={value.fileURL} target="_blank" >
                             <DownloadIcon/>

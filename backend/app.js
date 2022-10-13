@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
-app.post('/uploads', (req, res) => {
+app.post('/api/uploads', (req, res) => {
   const data = req.body;
   console.log(data)
   let query = `SELECT * from user_uploads WHERE (firstName = '${data.firstName}' AND lastName = '${data.lastName}')`;
@@ -27,7 +27,7 @@ app.post('/uploads', (req, res) => {
   });
 });
 
-app.post('/uploads_admin', (req, res) => {
+app.post('/api/uploads_admin', (req, res) => {
   const data = req.body;
   console.log(data)
   let query = `SELECT * from user_uploads`;
@@ -42,7 +42,7 @@ app.post('/uploads_admin', (req, res) => {
   });
 });
 
-app.post('/', (req,res) =>{
+app.post('/api/post_upload', (req,res) =>{
   const data = req.body;
   //let updated = false;
   let checkExists = `SELECT * FROM user_uploads WHERE (fileName ='${data.fileName}' AND firstName = '${data.firstName}' AND lastName = '${data.lastName}')`;
@@ -84,7 +84,7 @@ app.post('/', (req,res) =>{
   
 });
 
-app.post('/delete', (req,res) =>{
+app.post('/api/delete', (req,res) =>{
   const data = req.body;
 
   let query = `DELETE FROM user_uploads WHERE fileName = '${data.fileName}'`;

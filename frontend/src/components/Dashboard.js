@@ -1,5 +1,6 @@
 import React from "react";
 import Upload from "./Upload";
+import FileList from "./FileList";
 import Box from '@mui/material/Box';
 import 'react-tabs/style/react-tabs.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -25,7 +26,7 @@ const Dashboard = () => {
                         boxShadow: 1,
                         borderRadius: 2,
                         p: 2,
-                        maxWidth: 600,
+                        maxWidth: 1000,
                         }}
                         >
                         <Tabs>
@@ -38,7 +39,7 @@ const Dashboard = () => {
                                 <Upload/>
                             </TabPanel>
                             <TabPanel>
-                                files
+                                <FileList />
                             </TabPanel>
                         </Tabs>
                     </Box>

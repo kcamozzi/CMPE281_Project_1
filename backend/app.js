@@ -5,19 +5,38 @@ require('dotenv').config();
 const database = require('./sqlConnection');
 
 const app = express();
+const cors = require('cors');
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
+app.post('/uploads', (req, res) => {
   const data = req.body;
-
+  console.log(data)
   let query = `SELECT * from user_uploads WHERE (firstName = '${data.firstName}' AND lastName = '${data.lastName}')`;
 
   database.query(query, (err,result) => {
     if(err){
       res.send('Error');
     }else{
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
+
+app.post('/uploads_admin', (req, res) => {
+  const data = req.body;
+  console.log(data)
+  let query = `SELECT * from user_uploads`;
+
+  database.query(query, (err,result) => {
+    if(err){
+      res.send('Error');
+    }else{
+      console.log(result);
       res.send(result);
     }
   });
@@ -36,7 +55,21 @@ app.post('/', (req,res) =>{
   
 });
 
-app.get("/", (req, res) => {
+app.post('/delete', (req,res) =>{
+  const data = req.body;
+
+  let query = `DELETE FROM user_uploads WHERE fileName = '${data.fileName}'`;
+  database.query(query, data, (err,result) => {
+    if(err){
+      res.send('Error');
+    }else{
+      res.send(result);
+    }
+  })
+  
+});
+
+/* app.get("/", (req, res) => {
       
   let tableName = 'test_table';
 
@@ -52,7 +85,7 @@ app.get("/", (req, res) => {
       return res.send(
 `Successfully Created Table - ${tableName}`);
   })
-});
+}); */
 
 /* app.use('/api', require('./routes/api.route')); */
 

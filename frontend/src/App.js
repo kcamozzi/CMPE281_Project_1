@@ -20,7 +20,7 @@ function App({signOut, user}) {
       <div className="App">
         <header className="App-header">
         <h3>CMPE281 Project 1</h3>
-        <h3>Hello {user.attributes.given_name}</h3>
+        <h3>Hello, {user.attributes.given_name} {user.attributes.family_name}</h3>
         </header>
         <Routes> 
           {/* <Route path="/" element={<Home />} ></Route> */}

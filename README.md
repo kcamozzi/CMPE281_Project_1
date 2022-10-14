@@ -4,6 +4,8 @@ CMPE 281
 
 10/13/2022
 
+**[LINK TO PROJECT DEMO YOUTUBE VIDEO](https://youtu.be/fqgchoPQpgY)**
+
 # **Project 1**
 
 **Registration/Login**
